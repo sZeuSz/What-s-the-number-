@@ -1,3 +1,6 @@
+:root {
+
+}
 body{ 
     width: 100vw;
     height: 100vh;
@@ -27,11 +30,21 @@ body{
     margin: 0px 0px 15px 0px;
 }
 
-.erro {
+.erro{
     color: #CC3300;
 }
 .accept {
     color: #32BF00;
+}
+
+.on {
+    border-top: 18px solid #262A34 !important;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+}
+
+.on-center{
+    background: #262A34 !important;
 }
 
 .painel {
@@ -64,7 +77,7 @@ body{
     position: relative;
 }
 
-.main .center:before {
+.main .center .arrow-right {
     content: "";
     position: absolute;
     left: 42px;
@@ -74,7 +87,7 @@ body{
     border-right: 11.9px solid transparent;
     transform: rotate(-90deg);
 }
-.main .center:after {
+.main .center .arrow-left {
     content: "";
     position: absolute;
     right: 42px;
@@ -85,71 +98,50 @@ body{
     transform: rotate(90deg);
 }
 
-.top {
+.position-with-border{
     position: absolute;
-    top: 0px;
-    left: 0px;
     border-top: 18px solid #DDDDDD;
     border-left: 18px solid transparent;
     border-right: 18px solid transparent;
     height: 0px;
+}
+
+.top {
+    top: 0px;
+    left: 0px;
     width: 43px;
 }
 .left-led-first {
-    position: absolute;
     right: 16px;
     top: 35px;
-    border-top: 18px solid #DDDDDD;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    height: 0px;
     width: 50px;
     transform: rotate(-90deg);
 }
 
 .left-led-second {
-    position: absolute;
     right: 16px;
     top: 124px;
-    border-top: 18px solid #DDDDDD;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    height: 0px;
     width: 50px;
     transform: rotate(-90deg);
 }
 
 .right-led-first {
-    position: absolute;
     top: 35px;
     left: 31px;
-    border-top: 18px solid #DDDDDD;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    height: 0px;
     width: 50px;
     transform: rotate(90deg);
 }
 
 .right-led-second {
-    position: absolute;
     left: 31px;
     top: 124px;
-    border-top: 18px solid #DDDDDD;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    height: 0px;
     width: 50px;
     transform: rotate(90deg);
 }
 
 .bottom {
-    position: absolute;
     top: 163px;
     left: -4px;
-    border-bottom: 18px solid #DDDDDD;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    height: 0px;
     width: 50px;
+    transform: rotate(180deg)
 }
