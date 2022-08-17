@@ -1,0 +1,27 @@
+.restart {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 42px;
+    background: linear-gradient(180deg, #434854 0%, #9E9E9E 100%);
+    border-radius: 4px;
+    margin-top: 70px;
+    margin: 70px auto 0px auto;
+}
+.restart:hover {
+    filter: brightness(50%)
+}
+.restart button {
+    background: none;
+    border: none;
+    color: #ffffff;
+}
+
+[name='refresh-outline'] {
+    color: #ffffff;
+}
+
+.none {
+    display: none;
+}

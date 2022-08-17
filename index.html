@@ -20,5 +20,46 @@
         <h1>QUAL É O NÚMERO ?</h1>
         <div class="underline"></div>
     </header>
+    <div class="container">
+        <h1 class="notification none">ERRO</h1>
+        <div class="painel">
+            <div class="main hundred">
+                <div class="top"></div>
+                <div class="left-led-first"></div>
+                <div class="center-led"><div class="center"></div></div>
+                <div class="left-led-second"></div>
+                <div class="right-led-first"></div>
+                <div class="right-led-second"></div>
+                <div class="bottom"></div>
+            </div>
+            <div class="main dozen">
+                <div class="top"></div>
+                <div class="left-led-first"></div>
+                <div class="center-led"><div class="center"></div></div>
+                <div class="left-led-second"></div>
+                <div class="right-led-first"></div>
+                <div class="right-led-second"></div>
+                <div class="bottom"></div>
+            </div>
+            <div class="main unit">
+                <div class="top"></div>
+                <div class="left-led-first"></div>
+                <div class="center-led"><div class="center"></div></div>
+                <div class="left-led-second"></div>
+                <div class="right-led-first"></div>
+                <div class="right-led-second"></div>
+                <div class="bottom"></div>
+            </div>
+        </div>
+        <div class="restart"><ion-icon name="refresh-outline"></ion-icon> <button>NOVA PARTIDA</button></div>
+    </div>
+    <form>
+        <input  class="input" type="number" placeholder="Digite o palpite" min="1" max="300" required/>
+        <button class="submit" type="submit">Enviar</button>
+    </form>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./js/scripts.js"></script>
 </body>
 </html>
