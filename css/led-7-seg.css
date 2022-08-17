@@ -44,27 +44,27 @@ body{
     margin: 0 auto;
 }
 
-main {
+.main {
     position: relative;
     width: 63px;
     height: 150px;
 }
 
-main .center-led{
+.main .center-led{
     position: absolute;
     top: 75px;
     left: 15px;
 }
 
 
-main .center{
+.main .center{
     width: 45px;
     height: 24px;
     background: #DDDDDD;
     position: relative;
 }
 
-main .center:before {
+.main .center:before {
     content: "";
     position: absolute;
     left: 42px;
@@ -74,7 +74,7 @@ main .center:before {
     border-right: 11.9px solid transparent;
     transform: rotate(-90deg);
 }
-main .center:after {
+.main .center:after {
     content: "";
     position: absolute;
     right: 42px;
