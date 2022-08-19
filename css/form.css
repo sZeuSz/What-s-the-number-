@@ -25,3 +25,9 @@ form button {
 form button:hover{
     filter: brightness(80%);
 }
+
+form .erro-info {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}

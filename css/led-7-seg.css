@@ -1,6 +1,4 @@
-:root {
 
-}
 body{ 
     width: 100vw;
     height: 100vh;
@@ -47,7 +45,7 @@ body{
     background: #262A34 !important;
 }
 
-.painel {
+.panel {
     display:flex;
     align-items: center;
     justify-content: center;
