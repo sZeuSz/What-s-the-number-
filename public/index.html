@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS, JavaScript, React, Styled-components">
+    <meta name="author" content="Roseno Silva">
+    <meta name="description" content="An application that is a kind of rework of the game 'what's the number?'', a game in which the player must try to guess which is the correct number through guesses with hints of 'is bigger' or 'is smaller' each round."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/images/icon.gif" type="imagem/gif">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>What's the number, the game...</title>
+</head>
+<body>
+    <header class="header">
+        <h1>QUAL É O NÚMERO ?</h1>
+        <div class="underline"></div>
+    </header>
+    <div class="container">
+        <h1 class="notification alert"></h1>
+        <div class="panel">
+            <div class="main unit">
+                 <div class="position-with-border top on"></div>
+                <div class="position-with-border left-led-first on"></div>
+                <div class="center-led "><div class="center">
+                    <div class="arrow-right "></div>
+                    <div class="arrow-left "></div>
+                </div></div>
+                <div class="position-with-border left-led-second on"></div>
+                <div class="position-with-border right-led-first on"></div>
+                <div class="position-with-border right-led-second on"></div>
+                <div class="position-with-border bottom on"></div>
+            </div>
+            
+        </div>
+        <div class="restart none"><ion-icon name="refresh-outline"></ion-icon> <button>NOVA PARTIDA</button></div>
+    </div>
+    <form>
+        <div>
+        <input class="input" type="number" placeholder="Digite o palpite" min="1" max="300"  required/>
+        <p class="erro-info"></p>
+        </div>
+        <button class="submit" type="submit">Enviar</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="bundle.js"></script>
+</body>
+</html>
