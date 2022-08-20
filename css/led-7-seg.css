@@ -61,7 +61,7 @@ body{
 .panel {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 316px;
     width: 100%;
     margin: 0 auto;
