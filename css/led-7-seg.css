@@ -33,13 +33,29 @@ body{
     color: #FF6600;
 }
 
-.erro, .ERRO{
+.erro{
     color: #CC3300 !important;
 }
 .accept {
     color: #32BF00;
 }
+.accept-leds-on-center {
+    background: #32BF00 !important;
+}
+.erro-leds-on-center {
+    background: #CC3300 !important;
+}
+.accept-leds {
+    border-top: 18px solid #32BF00 !important;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+}
 
+.erro-leds {
+    border-top: 18px solid #CC3300 !important;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+}
 .on {
     border-top: 18px solid #262A34 !important;
     border-left: 18px solid transparent;

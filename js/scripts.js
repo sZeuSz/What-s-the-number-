@@ -1,6 +1,8 @@
 import { configPerLeds, htmlPerLeds } from "./data.js";
 
 let validNumber = false;
+let magicNumber;
+let erro = false;
 
 function arrayOfDigits(number) {
   let digits = [];
@@ -13,11 +15,32 @@ function arrayOfDigits(number) {
   return digits;
 }
 
-function renderInfo(info, erro=false) {
-  let notification = document.querySelector('.notification');
-  notification.classList.remove("none");
-  notification.classList.add(erro ? 'erro' : '');
-  notification.innerHTML = info;
+function switchClassLeds(className, numberChoiced) {
+  document.querySelectorAll(".on-center").forEach((e) => {
+    e.classList.remove("on-center");
+    e.classList.add(
+      className === "accept-leds"
+        ? `${className}-on-center`
+        : `${className}-on-center`
+    );
+  });
+  document.querySelectorAll(".on").forEach((e) => {
+    e.classList.remove("on");
+    e.classList.add(className);
+  });
+
+  document.querySelector(".restart").classList.remove("none");
+  document.querySelector(".input").disabled = true;
+  document.querySelector(".submit").disabled = true;
+}
+
+function renderInfo({ alertMessage, classNameAlert, classNameLeds }) {
+  let notification = document.querySelector(".notification");
+  notification.classList.add(classNameAlert);
+  notification.innerHTML = alertMessage;
+
+  if (alertMessage === "Você acertou!!!!" || alertMessage === "ERRO")
+    switchClassLeds(classNameLeds);
 }
 
 function renderNumber(digits) {
@@ -30,11 +53,15 @@ function renderNumber(digits) {
       //for each of the elements i add a class configuration to power on a seg.
       let splited = element.split(">");
       if (index === 2) {
-        splited[1] = `${splited[1].replace('"', '"' + configPerLeds[digits[i]][index] + " ")}"`;
+        splited[1] = `${splited[1].replace(
+          '"',
+          '"' + configPerLeds[digits[i]][index] + " "
+        )}"`;
         element = splited.join(">");
-        console.log(element);
       } else {
-        splited[0] = splited[0].split(">")[0].replace('"', '"' + configPerLeds[digits[i]][index] + " ");
+        splited[0] = splited[0]
+          .split(">")[0]
+          .replace('"', '"' + configPerLeds[digits[i]][index] + " ");
         element = splited.join(">");
       }
       string += element;
@@ -43,47 +70,49 @@ function renderNumber(digits) {
     panel.innerHTML += string;
   }
 }
-function submitAnswer(numberchoiced, numberMagic) {
+
+function returnInfos(numberChoiced, magicNumber) {
+  let info = {};
+
+  if (erro) {
+    info.alertMessage = "ERRO";
+    info.classNameAlert = "erro";
+    info.classNameLeds = "erro-leds";
+  } else if (numberChoiced > magicNumber) {
+    info.alertMessage = "É menor";
+    info.classNameAlert = "alert";
+    info.classNameLeds = "empty";
+  } else if (numberChoiced < magicNumber) {
+    info.alertMessage = "É maior";
+    info.classNameAlert = "alert";
+    info.classNameLeds = "empty";
+  } else {
+    info.alertMessage = "Você acertou!!!!";
+    info.classNameAlert = "accept";
+    info.classNameLeds = "accept-leds";
+  }
+
+  return info;
+}
+
+function submitAnswer(numberChoiced, magicNumber) {
   console.log("lógica de submissão");
+  console.log(magicNumber);
+  const digits = arrayOfDigits(erro ? erro : numberChoiced);
 
-  const digits = arrayOfDigits(numberchoiced);
+  let info = returnInfos(numberChoiced, magicNumber);
 
-  let info;
-  if(!numberMagic){
-    info = "ERRO"
-  }
-  else if(numberchoiced > numberMagic){
-    console.log("É menor")
-    info = "É menor"
-  }
-  else if(numberchoiced < numberMagic){
-    info = "É maior"
-  }
-  else{
-    info = "You Win"
-  }
-  renderInfo(info, info === 'ERRO')
-  renderNumber(digits);  
+  renderNumber(digits);
+  renderInfo(info);
 }
 
 function preventDefault(evt) {
   evt.preventDefault();
-
-  let numberChoiced = Number(document.querySelector(".input").value);
-  console.log(validNumber);
+  let input = document.querySelector(".input");
+  let numberChoiced = Number(input.value);
+  input.value = "";
   if (validNumber) {
-    axios
-      .get(
-        "https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300"
-      )
-      .then((response) => {
-        const { value } = response.data;
-        submitAnswer(numberChoiced, value);
-      })
-      .catch((error) => {
-        const erro = error?.response?.data?.StatusCode;
-        submitAnswer(erro);
-      });
+    submitAnswer(numberChoiced, magicNumber);
   }
 }
 
@@ -101,8 +130,51 @@ const handleInput = (event) => {
   errolabel.innerHTML = "";
   validNumber = true;
 };
+function iniatializeAndGenerateNumber() {
+  axios
+    .get("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
+    .then((response) => {
+      magicNumber = response.data.value;
+    })
+    .catch((error) => {
+      erro = error?.response?.data?.StatusCode;
+    });
+}
+
+function restartGame() {
+  document.querySelector(".restart").classList.add("none");
+  document.querySelector(".input").disabled = false;
+  document.querySelector(".submit").disabled = false;
+  let notification = document.querySelector(".notification")
+  notification.classList.remove("erro")
+  notification.classList.remove("alert")
+  notification.classList.remove("accept")
+  notification.innerHTML = "";
+  erro = false;
+  document.querySelector(".panel").innerHTML = `
+  <div class="main unit">
+      <div class="position-with-border top on"></div>
+      <div class="position-with-border left-led-first on"></div>
+      <div class="center-led "><div class="center">
+          <div class="arrow-right"></div>
+          <div class="arrow-left"></div>
+      </div></div>
+      <div class="position-with-border left-led-second on"></div>
+      <div class="position-with-border right-led-first on"></div>
+      <div class="position-with-border right-led-second on"></div>
+      <div class="position-with-border bottom on"></div>
+  </div>`;
+  iniatializeAndGenerateNumber();
+}
+
+(() => iniatializeAndGenerateNumber())();
 
 document
   .querySelector(".submit")
   .addEventListener("click", preventDefault, false);
-document.querySelector(".input").addEventListener("keyup", handleInput, false);
+document
+  .querySelector(".restart")
+  .addEventListener("click", restartGame, false);
+document
+  .querySelector(".input")
+  .addEventListener("keyup", handleInput, false);
