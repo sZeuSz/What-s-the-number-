@@ -1,4 +1,4 @@
-import { configPerLeds, htmlPerLeds } from "./utils/utils.js";
+import { configPerLeds, htmlPerLeds, getInfo } from "./utils/utils.js";
 
 let validNumber = false;
 let magicNumber;
@@ -216,11 +216,11 @@ const preventDefault = (evt) => {
  * marca a variável global validNumber como true.
  */
 const handleInput = (event) => {
-  const { value } = event.target;
-
+  let { value } = event.target;
+  value = parseInt(value, 10)
   let errolabel = document.querySelector(".erro-info");
-
-  if (value < 0 || value > 300 || !(/^[0-9]+$/.test(value))) {
+  
+  if (value <= 0 || value > 300 || !(/^[0-9]+$/.test(value))) {
     errolabel.innerHTML = "O número deve estar entre 0 e 300";
     validNumber = false;
     return;

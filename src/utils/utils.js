@@ -22,3 +22,26 @@ export const htmlPerLeds = [
   `<div class="position-with-border right-led-second"></div>`,
   `<div class="position-with-border bottom"></div>`,
 ];
+
+export const getInfo = {
+  502 : {
+          alertMessage :"ERRO",
+          classNameAlert : "erro",
+          classNameLeds : "erro-leds",
+        },
+  400 : {
+          alertMessage :"ERRO",
+          classNameAlert : "erro",
+          classNameLeds : "erro-leds",
+        },
+  true : {
+          alertMessage :"É menor",
+          classNameAlert : "alert",
+          classNameLeds : "empty",
+        },
+  false : {
+          alertMessage :"É maior",
+          classNameAlert : "alert",
+          classNameLeds : "empty",
+        },
+}
