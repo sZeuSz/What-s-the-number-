@@ -30,8 +30,8 @@ function switchClassLeds(className, numberChoiced) {
   });
 
   document.querySelector(".restart").classList.remove("none");
-  document.querySelector(".input").disabled = true;
-  document.querySelector(".submit").disabled = true;
+  document.querySelector(".input").classList.add("disable-input");
+  document.querySelector(".submit").classList.add("disable-button")
 }
 
 function renderInfo({ alertMessage, classNameAlert, classNameLeds }) {
@@ -143,8 +143,8 @@ function iniatializeAndGenerateNumber() {
 
 function restartGame() {
   document.querySelector(".restart").classList.add("none");
-  document.querySelector(".input").disabled = false;
-  document.querySelector(".submit").disabled = false;
+  document.querySelector(".input").classList.remove("disable-input")
+  document.querySelector(".submit").classList.remove("disable-button")
   let notification = document.querySelector(".notification")
   notification.classList.remove("erro")
   notification.classList.remove("alert")

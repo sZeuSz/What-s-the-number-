@@ -1,11 +1,12 @@
 form {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
 form input {
-    max-width: 217px;
-    width: 217px;
+    max-width: 271px;
+    width: calc(100vw - 70px);
     height: 42px;
     background: #FFFFFF;
     border: 1px solid #FF6600;
@@ -18,7 +19,7 @@ form button {
     height: 42px;
     background: linear-gradient(180deg, #EF6C00 0%, #C0661C 100%);
     border-radius: 4px;
-    border: none;
+    border: 1px solid #FF6600;
     color: #ffffff;
     filter: brightness(100%);
 }
@@ -30,4 +31,16 @@ form .erro-info {
     color: red;
     font-size: 12px;
     text-align: center;
+}
+
+.disable-input {
+    background: #F5F5F5;
+    border: 1px solid #CFCFCF;
+    pointer-events: none;
+}
+
+.disable-button {
+    border: 1px solid #CFCFCF;
+    background: #DDDDDD !important;
+    pointer-events: none;
 }
