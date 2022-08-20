@@ -4,7 +4,16 @@ let validNumber = false;
 let magicNumber;
 let erro = false;
 
-function arrayOfDigits(number) {
+/**
+ * Função responsável por retornar os dígitos
+ * do número que o usuário escolheu ou erro da
+ * requisição.
+ *
+ * Lógica: Enquanto número for divisível por 10
+ * quer dizer que eu ainda consigo tirar dígitos
+ * dele, adicionando cada dígito no começo do array.
+ */
+const arrayOfDigits = (number) => {
   let digits = [];
 
   while (number > 0) {
@@ -15,26 +24,61 @@ function arrayOfDigits(number) {
   return digits;
 }
 
-function switchClassLeds(className, numberChoiced) {
+
+/**
+ * Função responsável por desabilitar o input e o botão de enviar.
+ *
+ * Lógica: Simplesmente busca os elementos botão de restart, input e
+ * botão de enviar pela classe e remove a classe none do botão de restart
+ * para que ele apareça e depois adiciona a classe responsável
+ * por dar o estilo de desabilitado para eles.
+ */
+const disableFieldsAndButton = () => {
+  document.querySelector(".restart").classList.remove("none");
+  document.querySelector(".input").classList.add("disable-input");
+  document.querySelector(".submit").classList.add("disable-button");
+}
+
+
+/**
+ * Função responsável por modificar a cor dos leds.
+ *
+ * Lógica: Para cada elemento do DOM que tem a classe on ou on-center
+ * que representa a parte de led acesa, modifico essa classe
+ * baseada no que recebo por parâmetro (erro ou accept).
+ *
+ * Obs: para elementos do centro adiciono sufixo "on-center".
+ *
+ * Por fim, chama a função que desabilita os campos
+ * com que o usuário pode interagir.
+ */
+const switchClassLeds = (className, numberChoiced) => {
   document.querySelectorAll(".on-center").forEach((e) => {
     e.classList.remove("on-center");
-    e.classList.add(
-      className === "accept-leds"
-        ? `${className}-on-center`
-        : `${className}-on-center`
-    );
+    e.classList.add(`${className}-on-center`);
   });
   document.querySelectorAll(".on").forEach((e) => {
     e.classList.remove("on");
     e.classList.add(className);
   });
 
-  document.querySelector(".restart").classList.remove("none");
-  document.querySelector(".input").classList.add("disable-input");
-  document.querySelector(".submit").classList.add("disable-button")
+  disableFieldsAndButton();
 }
 
-function renderInfo({ alertMessage, classNameAlert, classNameLeds }) {
+
+/**
+ * Função responsável por modificar a notificação que deve aparecer
+ * para o usuário.
+ *
+ * Lógica: Modificar a notificação que deve aparecer
+ * para o usuário manipulando o innerHTML do elemento responsavel
+ * pelo alert (class .notification).
+ *
+ * OBS: Caso o usuário acerte ou a requisição tenha um erro, os leds
+ * precisam mudar de cor, então a função switchClassLeds é chamada
+ * para fazer essa parte.
+ */
+const renderInfo = ({ alertMessage, classNameAlert, classNameLeds }) => {
   let notification = document.querySelector(".notification");
   notification.classList.add(classNameAlert);
   notification.innerHTML = alertMessage;
@@ -43,14 +87,24 @@ function renderInfo({ alertMessage, classNameAlert, classNameLeds }) {
     switchClassLeds(classNameLeds);
 }
 
-function renderNumber(digits) {
+
+/**
+ * Função responsável por renderizar o número que
+ * o usuário digitar no campo input.
+ *
+ * Lógica: Para cada digito do número que o usuário digitou
+ * renderiza o led com a configuração HTML correspondente ao número
+ * que é informado lá em congifPerLeds no arquivo data.js e
+ * então a renderização é feita através da manipulação do DOM
+ * concatenando cada led gerado no innerHTML do painel de leds.
+ */
+const renderNumber = (digits) => {
   let panel = document.querySelector(".panel");
   panel.innerHTML = "";
 
   for (let i = 0; i < digits.length; i++) {
     let string = `<div class="main unit ">`;
     htmlPerLeds.forEach((element, index) => {
-      //for each of the elements i add a class configuration to power on a seg.
       let splited = element.split(">");
       if (index === 2) {
         splited[1] = `${splited[1].replace(
@@ -71,7 +125,19 @@ function renderNumber(digits) {
   }
 }
 
-function returnInfos(numberChoiced, magicNumber) {
+
+/**
+ * Função responsável por retornar as informações
+ * que serão usadas nas funções que alertam
+ * o usuário sobre seu palpite.
+ *
+ * Lógica: Baseado em comparações modifica as
+ * propriedade alertMessage, classNameAlert e classNameLeds
+ * que são responsáveis por texto que deve ser exibido para
+ * o usuário, cor do texto que deve ser exibido e cor dos leds
+ * respectivamente.
+ */
+const returnInfos = (numberChoiced, magicNumber) => {
   let info = {};
 
   if (erro) {
@@ -95,9 +161,21 @@ function returnInfos(numberChoiced, magicNumber) {
   return info;
 }
 
-function submitAnswer(numberChoiced, magicNumber) {
-  console.log("lógica de submissão");
-  console.log(magicNumber);
+
+/**
+ * Função responsável pelo processo de submissão do palpite
+ * do usuário.
+ *
+ * Lógica: Gera array dos dígitos do número escolhido pelo usuário
+ * caso tenha um erro, retorna o code do erro para a função
+ * que gera o array de dígitos. depois disso chama a função que gera
+ * a informação de cada alert ("É maior", "É menor"...)
+ * e também gera as configurações para os estilos de cada alert e led.
+ *
+ * Por fim... chama outras duas funções renderNumber e renderInfo
+ * (como o nome já diz, fazem manipulação do DOM)
+ */
+const submitAnswer = (numberChoiced, magicNumber) => {
   const digits = arrayOfDigits(erro ? erro : numberChoiced);
 
   let info = returnInfos(numberChoiced, magicNumber);
@@ -106,7 +184,17 @@ function submitAnswer(numberChoiced, magicNumber) {
   renderInfo(info);
 }
 
-function preventDefault(evt) {
+
+/**
+ * Função responsável por prevenir o
+ * comportamento padrão ao clicar no botão
+ * de enviar.
+ *
+ * Lógica: Limpar o valor do input usando o .value ao buscar e depois checa se
+ * o número é válido, se for válido, chama a função responsável pelo
+ * processo de submissão do palpite do usuário.
+ */
+const preventDefault = (evt) => {
   evt.preventDefault();
   let input = document.querySelector(".input");
   let numberChoiced = Number(input.value);
@@ -116,6 +204,17 @@ function preventDefault(evt) {
   }
 }
 
+/**
+ * função responsável por modificar o
+ * erro embaixo do input baseado no valor
+ * que o usuário digita.
+ * 
+ * Lógica: Compara o valor do input para saber
+ * se é um valor aceitável ou não, caso não seja
+ * marca a variável global validNumber como false, 
+ * caso seja valido limpa o erro embaixo do input e
+ * marca a variável global validNumber como true.
+ */
 const handleInput = (event) => {
   const { value } = event.target;
 
@@ -130,7 +229,17 @@ const handleInput = (event) => {
   errolabel.innerHTML = "";
   validNumber = true;
 };
-function iniatializeAndGenerateNumber() {
+
+/**
+ * Função responsável por fazer a primeira requisição do
+ * jogo a cada novo início de jogo.
+ *
+ * Lógica: caso a requisição tenha sucesso, atribue
+ * o valor da resposta na variável global magicNumber
+ * caso a requisição der algum erro, pega o status code desse
+ * e atribue na variável global "erro".
+ */
+const iniatializeAndGenerateNumber = () => {
   axios
     .get("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
     .then((response) => {
@@ -141,14 +250,28 @@ function iniatializeAndGenerateNumber() {
     });
 }
 
-function restartGame() {
+/**
+ * Função responsável por resetar todas as configurações
+ * necessárias para o estado inicial do jogo ser mantido.
+ * 
+ * Lógica: Usando document.querySelector para buscar os elementos do DOM
+ * adiciona none no classList do botão de restart
+ * para ele sumir da tela, remove as classes responsável pelo
+ * disable do input e botão, remove todas as classes possíveis
+ * do alert que aparece para o usuário durante o jogo,
+ * redefine o valor da variável global "erro" para false, 
+ * redefine o innerHTML do painel para o led com 
+ * o número zero (estado inicial do led) e por fim gera um novo
+ * número usando a API.
+ */
+const restartGame = () => {
   document.querySelector(".restart").classList.add("none");
-  document.querySelector(".input").classList.remove("disable-input")
-  document.querySelector(".submit").classList.remove("disable-button")
-  let notification = document.querySelector(".notification")
-  notification.classList.remove("erro")
-  notification.classList.remove("alert")
-  notification.classList.remove("accept")
+  document.querySelector(".input").classList.remove("disable-input");
+  document.querySelector(".submit").classList.remove("disable-button");
+  let notification = document.querySelector(".notification");
+  notification.classList.remove("erro");
+  notification.classList.remove("alert");
+  notification.classList.remove("accept");
   notification.innerHTML = "";
   erro = false;
   document.querySelector(".panel").innerHTML = `
@@ -167,14 +290,25 @@ function restartGame() {
   iniatializeAndGenerateNumber();
 }
 
+/** função auto-invocável 
+ * 
+ * responsável por fazer a primeira requisição da API 
+ * ao carregar a página.
+ * 
+*/
 (() => iniatializeAndGenerateNumber())();
-
+ 
+/**
+ * Adicionando eventos para 
+ * controlar clicks e inputs baseado
+ * nas funções que criei
+ */
 document
   .querySelector(".submit")
   .addEventListener("click", preventDefault, false);
 document
   .querySelector(".restart")
   .addEventListener("click", restartGame, false);
-document
-  .querySelector(".input")
-  .addEventListener("keyup", handleInput, false);
+document.
+  querySelector(".input").
+  addEventListener("keyup", handleInput, false);
