@@ -1,6 +1,7 @@
 form {
     display: flex;
-    align-items: center;
+    height: 75px;
+    align-items: start;
     gap: 10px;
 }
 
@@ -16,7 +17,7 @@ form input {
 
 form button {
     width: 70px;
-    height: 42px;
+    height: 45px;
     background: linear-gradient(180deg, #EF6C00 0%, #C0661C 100%);
     border-radius: 4px;
     border: 1px solid #FF6600;

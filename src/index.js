@@ -1,4 +1,4 @@
-import { configPerLeds, htmlPerLeds } from "./data.js";
+import { configPerLeds, htmlPerLeds } from "./utils/utils.js";
 
 let validNumber = false;
 let magicNumber;
@@ -197,7 +197,7 @@ const submitAnswer = (numberChoiced, magicNumber) => {
 const preventDefault = (evt) => {
   evt.preventDefault();
   let input = document.querySelector(".input");
-  let numberChoiced = Number(input.value);
+  let numberChoiced = parseInt(input.value, 10);
   input.value = "";
   if (validNumber) {
     submitAnswer(numberChoiced, magicNumber);
@@ -220,7 +220,7 @@ const handleInput = (event) => {
 
   let errolabel = document.querySelector(".erro-info");
 
-  if (value < 0 || value > 300) {
+  if (value < 0 || value > 300 || !(/^[0-9]+$/.test(value))) {
     errolabel.innerHTML = "O número deve estar entre 0 e 300";
     validNumber = false;
     return;
