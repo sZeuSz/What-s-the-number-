@@ -257,7 +257,7 @@ const iniatializeAndGenerateNumber = () => {
  * Lógica: Usando document.querySelector para buscar os elementos do DOM
  * adiciona none no classList do botão de restart
  * para ele sumir da tela, remove as classes responsável pelo
- * disable do input e botão, remove todas as classes possíveis
+ * disable do input e botão, limpa o innerHTML do erro no input, remove todas as classes possíveis
  * do alert que aparece para o usuário durante o jogo,
  * redefine o valor da variável global "erro" para false, 
  * redefine o innerHTML do painel para o led com 
@@ -268,6 +268,7 @@ const restartGame = () => {
   document.querySelector(".restart").classList.add("none");
   document.querySelector(".input").classList.remove("disable-input");
   document.querySelector(".submit").classList.remove("disable-button");
+  document.querySelector(".erro-info").innerHTML = "";
   let notification = document.querySelector(".notification");
   notification.classList.remove("erro");
   notification.classList.remove("alert");

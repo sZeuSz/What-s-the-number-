@@ -1,11 +1,11 @@
-form {
+.form {
     display: flex;
     height: 75px;
     align-items: start;
     gap: 10px;
 }
 
-form input {
+.form input {
     max-width: 271px;
     width: calc(100vw - 70px);
     height: 42px;
@@ -15,7 +15,7 @@ form input {
     padding-left: 12px;
 }
 
-form button {
+.form button {
     width: 70px;
     height: 45px;
     background: linear-gradient(180deg, #EF6C00 0%, #C0661C 100%);
@@ -24,11 +24,11 @@ form button {
     color: #ffffff;
     filter: brightness(100%);
 }
-form button:hover{
+.form button:hover{
     filter: brightness(80%);
 }
 
-form .erro-info {
+.form .erro-info {
     color: red;
     font-size: 12px;
     text-align: center;
