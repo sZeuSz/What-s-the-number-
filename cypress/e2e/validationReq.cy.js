@@ -1,5 +1,5 @@
 describe("Testando requisição", () => {
-  it("Requisição retorna status 400 se não for enviado parâmetros corretos", () => {
+  it("Requisição retorna status 400 se não for enviado parâmetros corretos ou 502", () => {
     cy.request({
       method: "get",
       url: "https://us-central1-ss-devops.cloudfunctions.net/rand",
@@ -38,7 +38,7 @@ describe("Testando requisição", () => {
         : expect(resp.status).to.eq(400);
     });
   });
-  it("Requisição retorna status 200 se os parâmetros forem enviados corretamente", () => {
+  it("Requisição retorna status 200 se os parâmetros forem enviados corretamente ou 502", () => {
     cy.request({
       method: "get",
       url: "https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300",
@@ -50,7 +50,7 @@ describe("Testando requisição", () => {
     });
   });
 
-  it("Requisição retorna body com campo value se tiver sucesso", () => {
+  it("Requisição retorna body com campo value se tiver sucesso ou 502", () => {
     cy.request({
       method: "get",
       url: "https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300",
