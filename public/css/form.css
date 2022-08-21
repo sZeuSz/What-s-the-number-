@@ -45,3 +45,44 @@
     background: #DDDDDD !important;
     pointer-events: none;
 }
+
+@media (max-width: 480px) {
+  .form input {
+    max-width: 217px;
+    width: calc(100vw - 70px);
+    height: 42px;
+    background: #FFFFFF;
+    border: 1px solid #FF6600;
+    border-radius: 4px;
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 280px){
+    .container-input {
+        width: 60%;
+    }
+    .form input {
+        max-width: calc(280px - 70px);
+        width: 93%;
+        height: 42px;
+        background: #FFFFFF;
+        border: 1px solid #FF6600;
+        border-radius: 4px;
+        padding-left: 12px;
+    }
+    .form .erro-info {
+        color: red;
+        font-size: 12px;
+        text-align: center;
+        margin-left: 4px;
+    }
+    .form {
+        width: 85%;
+        display: flex;
+        height: 75px;
+        align-items: start;
+        gap: 10px;
+        justify-content: space-between;
+    }
+}
