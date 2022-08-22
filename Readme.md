@@ -14,7 +14,7 @@ git clone https://github.com/sZeuSz/What-s-the-number-
 
 Se você está usando o zip (extraia o arquivo para sua máquina)
 
-## Use os seguintes comandos
+## No diretório do projeto, use os seguintes comandos
 
 Para instalar as depêndencias do projeto:
 
