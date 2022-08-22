@@ -22,8 +22,7 @@ const arrayOfDigits = (number) => {
   }
 
   return digits;
-}
-
+};
 
 /**
  * Função responsável por desabilitar o input e o botão de enviar.
@@ -37,8 +36,7 @@ const disableFieldsAndButton = () => {
   document.querySelector(".restart").classList.remove("none");
   document.querySelector(".input").classList.add("disable-input");
   document.querySelector(".submit").classList.add("disable-button");
-}
-
+};
 
 /**
  * Função responsável por modificar a cor dos leds.
@@ -63,8 +61,7 @@ const switchClassLeds = (className, numberChoiced) => {
   });
 
   disableFieldsAndButton();
-}
-
+};
 
 /**
  * Função responsável por modificar a notificação que deve aparecer
@@ -85,8 +82,7 @@ const renderInfo = ({ alertMessage, classNameAlert, classNameLeds }) => {
 
   if (alertMessage === "Você acertou!!!!" || alertMessage === "ERRO")
     switchClassLeds(classNameLeds);
-}
-
+};
 
 /**
  * Função responsável por renderizar o número que
@@ -123,8 +119,7 @@ const renderNumber = (digits) => {
     string += "</div";
     panel.innerHTML += string;
   }
-}
-
+};
 
 /**
  * Função responsável por retornar as informações
@@ -159,8 +154,7 @@ const returnInfos = (numberChoiced, magicNumber) => {
   }
 
   return info;
-}
-
+};
 
 /**
  * Função responsável pelo processo de submissão do palpite
@@ -182,8 +176,7 @@ const submitAnswer = (numberChoiced, magicNumber) => {
 
   renderNumber(digits);
   renderInfo(info);
-}
-
+};
 
 /**
  * Função responsável por prevenir o
@@ -199,28 +192,27 @@ const preventDefault = (evt) => {
   let input = document.querySelector(".input");
   let numberChoiced = parseInt(input.value, 10);
   input.value = "";
-  if (validNumber) {
+  if (validNumber && numberChoiced) {
     submitAnswer(numberChoiced, magicNumber);
   }
-}
+};
 
 /**
  * função responsável por modificar o
  * erro embaixo do input baseado no valor
  * que o usuário digita.
- * 
+ *
  * Lógica: Compara o valor do input para saber
  * se é um valor aceitável ou não, caso não seja
- * marca a variável global validNumber como false, 
+ * marca a variável global validNumber como false,
  * caso seja valido limpa o erro embaixo do input e
  * marca a variável global validNumber como true.
  */
 const handleInput = (event) => {
   let { value } = event.target;
-  value = parseInt(value, 10)
   let errolabel = document.querySelector(".erro-info");
-  
-  if (value <= 0 || value > 300 || !(/^[0-9]+$/.test(value))) {
+
+  if (value <= 0 || value > 300 || !/^[0-9]+$/.test(value)) {
     errolabel.innerHTML = "O número deve estar entre 0 e 300";
     validNumber = false;
     return;
@@ -248,19 +240,19 @@ const iniatializeAndGenerateNumber = () => {
     .catch((error) => {
       erro = error?.response?.data?.StatusCode;
     });
-}
+};
 
 /**
  * Função responsável por resetar todas as configurações
  * necessárias para o estado inicial do jogo ser mantido.
- * 
+ *
  * Lógica: Usando document.querySelector para buscar os elementos do DOM
  * adiciona none no classList do botão de restart
  * para ele sumir da tela, remove as classes responsável pelo
  * disable do input e botão, limpa o innerHTML do erro no input, remove todas as classes possíveis
  * do alert que aparece para o usuário durante o jogo,
- * redefine o valor da variável global "erro" para false, 
- * redefine o innerHTML do painel para o led com 
+ * redefine o valor da variável global "erro" para false,
+ * redefine o innerHTML do painel para o led com
  * o número zero (estado inicial do led) e por fim gera um novo
  * número usando a API.
  */
@@ -289,18 +281,18 @@ const restartGame = () => {
       <div class="position-with-border bottom on"></div>
   </div>`;
   iniatializeAndGenerateNumber();
-}
+};
 
-/** função auto-invocável 
- * 
- * responsável por fazer a primeira requisição da API 
+/** função auto-invocável
+ *
+ * responsável por fazer a primeira requisição da API
  * ao carregar a página.
- * 
-*/
+ *
+ */
 (() => iniatializeAndGenerateNumber())();
- 
+
 /**
- * Adicionando eventos para 
+ * Adicionando eventos para
  * controlar clicks e inputs baseado
  * nas funções que criei
  */
@@ -310,6 +302,4 @@ document
 document
   .querySelector(".restart")
   .addEventListener("click", restartGame, false);
-document.
-  querySelector(".input").
-  addEventListener("keyup", handleInput, false);
+document.querySelector(".input").addEventListener("keyup", handleInput, false);
